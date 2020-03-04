@@ -17,13 +17,14 @@ proxies_list = ['45.82.250.167:80', '138.68.173.29:8080', '186.28.241.182:80', '
 print(proxies_list)
 #PROXY = proxies[random.randrange(0,len(proxies))]
 for PROXY in proxies_list:
-    options.add_argument('--proxy-server=%s' % PROXY)
-    driver = webdriver.Chrome("./chromedriver.exe",options = options)  # Optional argument, if not specified will search path.
+    if Proxies.is_working(PROXY):
+        options.add_argument('--proxy-server=%s' % PROXY)
+        driver = webdriver.Chrome("./chromedriver.exe",options = options)  # Optional argument, if not specified will search path.
 
-    driver.get("https://www.iplocation.net/find-ip-address")
-    time.sleep(random.randrange(50,300))
+        driver.get("https://www.iplocation.net/find-ip-address")
+        time.sleep(1)
 
-    driver.close()
+        driver.close()
 
         
 
