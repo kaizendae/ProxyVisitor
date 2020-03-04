@@ -29,8 +29,28 @@ def get_Proxies():
         res = tr.find_all('td')
         if len(res) > 0:
             proxy = res[0].get_text() + ":" + res[1].get_text()
-            proxies.append(proxy)
+            if is_working(proxy):
+                print(proxy)
+                proxies.append(proxy)
             
     return proxies
 
+def is_working(proxy):
+    try:
+        print("Testing : " + proxy + ' ...')
+        requests.get('http://google.com', proxies={'http': 'http://'+ proxy},timeout=2)
+    except:
+        print("Not Working :/")
+        return False
+    else:
+        print("Working :)")
+        return True
+
+
+def Get_Proxy_File(path):
+    proxy_list = list()
+    with open(path) as f:
+        for line in f:
+            proxy_list.append(line)
+        return proxy_list
 
