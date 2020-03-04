@@ -1,6 +1,5 @@
 import requests
 
-
 def save_to_text():
 
     url = "https://free-proxy-list.net/"
@@ -33,3 +32,5 @@ def get_Proxies():
             proxies.append(proxy)
             
     return proxies
+
+
