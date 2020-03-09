@@ -1,31 +1,26 @@
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
 import random
 import Proxies
 import requests
 import time
-options = webdriver.ChromeOptions()
-options.binary_location= r"./chromium/Application/chrome.exe"
+from bs4 import BeautifulSoup
 
 
-proxies_list = ['45.82.250.167:80', '138.68.173.29:8080', '186.28.241.182:80', '80.187.140.26:8080', '84.17.51.200:80', '159.203.91.6:8080', '84.17.51.183:80', '185.186.77.115:80', '144.217.163.138:8080', '46.4.96.87:80', '189.125.180.111:80', '138.197.204.55:8080', '94.177.232.116:8080', '45.55.9.218:8080', 
-'45.63.43.103:80', '84.17.51.197:80', '138.68.24.145:8080', '169.57.157.148:80', '138.197.222.35:8080', '217.138.212.123:80', '84.17.47.196:80', '175.28.14.3:80', '95.85.36.236:8080', '118.69.50.154:80', '67.205.146.29:8080', '138.68.240.218:8080', '165.227.215.62:8080', '138.197.157.44:8080', 
-'45.55.27.15:8080', '138.197.174.156:8080', '46.4.96.67:80', '139.162.78.109:8080', '176.9.75.42:8080', '138.197.145.103:8080', '185.186.77.197:80', '84.17.47.203:80', '217.138.212.118:80', '52.179.231.206:80', '203.202.245.62:80', '138.197.157.32:8080', '139.59.61.229:8080', '217.138.212.119:80', '189.125.180.119:80', '84.17.51.186:80', '176.9.119.170:8080', '159.65.151.96:8080', '88.198.24.108:8080', '217.138.212.108:80', '165.227.215.71:8080', '51.79.51.43:80', '185.186.77.111:80', '84.17.47.204:80', '84.17.47.192:80', '84.17.47.184:80', '217.138.212.102:80', '80.59.199.213:8080', '80.48.119.28:8080', '88.198.50.103:8080', '139.59.169.246:8080', '72.35.40.34:8080', '207.154.231.212:8080', '207.154.231.213:8080', '67.205.149.230:8080', '125.17.80.226:8080', '84.17.47.190:80', '84.17.51.195:80', '82.196.11.105:8080', '159.203.166.41:8080', '154.16.202.22:8080', '162.243.108.161:8080', '185.122.58.80:80', '162.243.107.120:8080', '80.59.199.212:8080', '139.59.59.63:8080', '139.59.99.234:8080', '174.138.54.49:8080', '102.129.249.120:8080', '67.205.132.241:8080', '139.59.101.223:8080', '138.197.157.45:8080', '198.16.99.106:80', '84.17.47.185:80']
+while True:
+    proxies_list = Proxies.get_Proxies()
+    print(len(proxies_list))
 
-print(proxies_list)
-#PROXY = proxies[random.randrange(0,len(proxies))]
-for PROXY in proxies_list:
-    if Proxies.is_working(PROXY):
-        options.add_argument('--proxy-server=%s' % PROXY)
-        driver = webdriver.Chrome("./chromedriver.exe",options = options)  # Optional argument, if not specified will search path.
-
-        driver.get("https://www.iplocation.net/find-ip-address")
-        time.sleep(1)
-
-        driver.close()
-
-        
+    #PROXY = proxies[random.randrange(0,len(proxies))]
+    for PROXY in proxies_list:
+        i = 0
+        if Proxies.is_working(PROXY): 
+            print("#####################")
+            requests.get('https://www.ebay.com/itm//392707893919', proxies={'http': 'http://'+ PROXY},timeout=1)
+            wait = random.randrange(30,300)
+            print(" visit N:" + str(i) + " Waiting : " + str(wait))
+            time.sleep(random.randrange(30,300))
+            i = i+1
+        if i == 5:
+            time.sleep(3600)
+            i = 0
 
 
